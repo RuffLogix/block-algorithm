@@ -71,7 +71,17 @@ export default class BasedBlock<T> {
     return this;
   }
 
-  run(blocks: BasedBlock<T>[]): this {
+  static createConstant<T>(value: T, name: string = "Constant"): BasedBlock<T> {
+    return new BasedBlock<T>(0, 1, () => [value], name, "Constant value node");
+  }
+
+  run(blocks: BasedBlock<T>[] = []): this {
+    // Special handling for constant nodes with 0 inputs
+    if (this._nInputs === 0) {
+      this._outputs = Array.isArray(this._fn()) ? this._fn() : [this._fn()];
+      return this;
+    }
+
     const internalInputs = this._inputs.map(
       (input) => blocks[input.blockIndex].outputs[input.pinIndex],
     );
