@@ -6,8 +6,8 @@ A block algorithm is a project that allows you to create blocks with your own sp
 
 ## Todo List
 
-- [ ] Implement `BasedBlock` class
-- [ ] Implement connection between blocks
+- [x] Implement `BasedBlock` class
+- [x] Implement connection between blocks
 - [ ] Create test cases for `BasedBlock` class
 - [ ] Implement Block UI component
 - [ ] Implement Block Editor UI component
