@@ -17,6 +17,9 @@ A block algorithm is a project that allows you to create blocks with your own sp
 - [x] Block Editor UI component
 - [ ] Create Block Button
 - [ ] Delete Block Button
+- [ ] Curve Connection
+- [ ] Zoom In/Out
+- [ ] Cancel Connection
 - [x] Preset Blocks (Logic, Math, etc.)
 - [ ] `console.log()` block for debugging
 - [ ] Animation when block is running.
