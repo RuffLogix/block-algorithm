@@ -4,11 +4,7 @@
 
 A block algorithm is a project that allows you to create blocks with your own specific functions, which can be plugged and played with other blocks.
 
-## Demo
-
-![Demo](./public/images/demo.png)
-
-Block Structure
+### Block Structure
 
 ```
 id: number;
@@ -23,6 +19,10 @@ outputNames: string[];
 fn: Function;
 style: string;
 ```
+
+## Demo
+
+![Demo](./public/images/demo.png)
 
 ## Todo List
 
