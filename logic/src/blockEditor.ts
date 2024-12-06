@@ -13,11 +13,7 @@ export default class BlockEditor<T> {
   private extractGraph(): void {
     this.vertices.clear();
     this.edges = [];
-
-    // Add all blocks as vertices
     this.blocks.forEach((_, index) => this.vertices.add(index));
-
-    // Extract edges from block inputs
     this.blocks.forEach((block, targetIndex) => {
       block.inputs.forEach((input) => {
         const sourceIndex = input.blockIndex;
@@ -27,28 +23,79 @@ export default class BlockEditor<T> {
   }
 
   runTopological(): void {
-    // Perform topological sort and run
     const inDegree = new Map<number, number>();
-    this.vertices.forEach((v) => inDegree.set(v, 0));
+    const graph = new Map<number, number[]>();
 
-    // Count in-degrees
+    // Initialize in-degree and adjacency list
+    this.vertices.forEach((v) => {
+      inDegree.set(v, 0);
+      graph.set(v, []);
+    });
+
+    // Compute in-degrees and build adjacency list
     this.edges.forEach((edge) => {
       const currentInDegree = inDegree.get(edge.to) ?? 0;
       inDegree.set(edge.to, currentInDegree + 1);
+
+      const adjacentVertices = graph.get(edge.from) ?? [];
+      adjacentVertices.push(edge.to);
+      graph.set(edge.from, adjacentVertices);
     });
 
-    // Find nodes with zero in-degree (sources)
+    // Detect cycles using depth-first search
+    const detectCycle = (): boolean => {
+      const visited = new Set<number>();
+      const recursionStack = new Set<number>();
+
+      const dfs = (vertex: number): boolean => {
+        if (recursionStack.has(vertex)) {
+          return true; // Cycle detected
+        }
+
+        if (visited.has(vertex)) {
+          return false; // Already fully explored
+        }
+
+        visited.add(vertex);
+        recursionStack.add(vertex);
+
+        const neighbors = graph.get(vertex) ?? [];
+        for (const neighbor of neighbors) {
+          if (dfs(neighbor)) {
+            return true; // Cycle found in subtree
+          }
+        }
+
+        recursionStack.delete(vertex);
+        return false;
+      };
+
+      for (const vertex of this.vertices) {
+        if (dfs(vertex)) {
+          return true; // Cycle found
+        }
+      }
+
+      return false;
+    };
+
+    // Check for cycles before sorting
+    if (detectCycle()) {
+      throw new Error("Cyclic dependency detected in block graph");
+    }
+
+    // Kahn's algorithm for topological sorting
     const queue = Array.from(this.vertices).filter(
       (v) => (inDegree.get(v) ?? 0) === 0,
     );
-
     const order: number[] = [];
+    const processedVertices = new Set<number>();
 
     while (queue.length > 0) {
       const current = queue.shift()!;
       order.push(current);
+      processedVertices.add(current);
 
-      // Reduce in-degree for adjacent nodes
       this.edges
         .filter((edge) => edge.from === current)
         .forEach((edge) => {
@@ -61,18 +108,14 @@ export default class BlockEditor<T> {
         });
     }
 
-    // Run blocks in topological order
+    // Check if all vertices were processed
+    if (processedVertices.size !== this.vertices.size) {
+      throw new Error("Not all blocks could be sorted due to dependencies");
+    }
+
+    // Execute blocks in topological order
     order.forEach((index) => {
       this.blocks[index].run(this.blocks);
     });
-  }
-
-  // Debug methods
-  getVertices(): number[] {
-    return Array.from(this.vertices);
-  }
-
-  getEdges(): { from: number; to: number }[] {
-    return this.edges;
   }
 }
