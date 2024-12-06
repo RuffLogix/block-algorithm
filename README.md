@@ -8,6 +8,22 @@ A block algorithm is a project that allows you to create blocks with your own sp
 
 ![Demo](./public/images/demo.png)
 
+Block Structure
+
+```
+id: number;
+x: number;
+y: number;
+name: string;
+description: string;
+nInputs: number;
+nOutputs: number;
+inputNames: string[];
+outputNames: string[];
+fn: Function;
+style: string;
+```
+
 ## Todo List
 
 - [x] `BasedBlock` class
