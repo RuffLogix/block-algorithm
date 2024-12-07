@@ -63,7 +63,7 @@ const LogicGates: IBlock[] = [
     nOutputs: 1,
     inputNames: ["A"],
     outputNames: ["Output"],
-    fn: ([a]: bool[]) => !a,
+    fn: ([a]: boolean[]) => !a,
     style: "danger",
   },
   {
