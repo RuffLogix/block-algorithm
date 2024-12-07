@@ -8,8 +8,16 @@ export const calculateConnectionPath = (
 ) => {
   const startX = sourceNode.x + 250;
   const startY = sourceNode.y + 100 + sourcePinIndex * 20;
-  const endX = targetNode.x; // Adjusted for input position
-  const endY = targetNode.y + 105 + targetPinIndex * 25;
+  const endX = targetNode.x;
+  const endY = targetNode.y + 100 + targetPinIndex * 25;
 
-  return `M${startX},${startY} L${endX},${endY}`;
+  // Calculate control points for the 90-degree turns
+  const midX = (startX + endX) / 2;
+
+  return `
+    M ${startX},${startY}
+    H ${midX}
+    V ${endY}
+    H ${endX}
+  `;
 };
