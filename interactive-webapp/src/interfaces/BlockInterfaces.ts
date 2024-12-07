@@ -4,7 +4,7 @@ export interface IPinPosition {
 }
 
 export interface IBlock {
-  id: string | number;
+  id: number;
   x: number;
   y: number;
   name: string;
@@ -14,5 +14,5 @@ export interface IBlock {
   inputNames: string[];
   outputNames: string[];
   fn: Function;
-  style?: string;
+  style: string;
 }
