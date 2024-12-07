@@ -37,7 +37,7 @@ const LogicGates: IBlock[] = [
     nOutputs: 1,
     inputNames: ["A", "B"],
     outputNames: ["Output"],
-    fn: ([a, b]) => a && b,
+    fn: ([a, b]: boolean[]) => a && b,
     style: "danger",
   },
   {
@@ -50,7 +50,7 @@ const LogicGates: IBlock[] = [
     nOutputs: 1,
     inputNames: ["A", "B"],
     outputNames: ["Output"],
-    fn: ([a, b]) => a || b,
+    fn: ([a, b]: boolean[]) => a || b,
     style: "danger",
   },
   {
@@ -63,7 +63,7 @@ const LogicGates: IBlock[] = [
     nOutputs: 1,
     inputNames: ["A"],
     outputNames: ["Output"],
-    fn: ([a]) => !a,
+    fn: ([a]: bool[]) => !a,
     style: "danger",
   },
   {
@@ -76,7 +76,7 @@ const LogicGates: IBlock[] = [
     nOutputs: 0,
     inputNames: ["Value"],
     outputNames: [],
-    fn: (value) => console.log(value),
+    fn: (value: any) => console.log(value),
     style: "info",
   },
 ];
