@@ -3,25 +3,7 @@
 import { IBlock } from "@/interfaces/BlockInterfaces";
 import { useState } from "react";
 import LogicGates from "@/utils/sample_blocks/logic_gates";
-
-interface IDraggedNode {
-  node: IBlock;
-  offsetX: number;
-  offsetY: number;
-}
-
-interface IConnection {
-  source: {
-    nodeId: number;
-    pinName: string;
-    pinIndex: number;
-  };
-  target: {
-    nodeId: number;
-    pinName: string;
-    pinIndex: number;
-  };
-}
+import { IDraggedNode, IConnection } from "@/interfaces/NodeManagerInterfaces";
 
 export const NodeManager = () => {
   const [nodes, setNodes] = useState<IBlock[]>(LogicGates);

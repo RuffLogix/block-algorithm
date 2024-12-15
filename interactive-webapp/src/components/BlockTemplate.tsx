@@ -5,13 +5,7 @@ import { calculateConnectionPath } from "@/utils/helpers";
 import { IBlock } from "@/interfaces/BlockInterfaces";
 import { NodeManager } from "./NodeManager";
 import { BasedBlock, BlockEditor } from "@/core/blocks";
-
-interface ISelectedPin {
-  node: IBlock;
-  pinType: string;
-  pinName: string;
-  pinIndex: number;
-}
+import { ISelectedPin } from "@/interfaces/NodeManagerInterfaces";
 
 export default function BlockTemplate() {
   const {
