@@ -6,6 +6,13 @@ import { IBlock } from "@/interfaces/BlockInterfaces";
 import { NodeManager } from "./NodeManager";
 import { BasedBlock, BlockEditor } from "@/core/blocks";
 
+interface ISelectedPin {
+  node: IBlock;
+  pinType: string;
+  pinName: string;
+  pinIndex: number;
+}
+
 export default function BlockTemplate() {
   const {
     nodes,
@@ -17,20 +24,11 @@ export default function BlockTemplate() {
     handleMouseUp,
     draggedNode,
   } = NodeManager();
-  const [selectedPin, setSelectedPin] = useState(null);
+  const [selectedPin, setSelectedPin] = useState<ISelectedPin | null>(null);
 
   const [blockEditor] = useState(new BlockEditor<number>());
 
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [draggedNode]);
-
-  const handleConnectPin = (node, pinType, pinName, pinIndex) => {
+  const handleConnectPin = (node: IBlock, pinType: string, pinName: string, pinIndex: number) => {
     if (!selectedPin) {
       setSelectedPin({ node, pinType, pinName, pinIndex });
       return;
