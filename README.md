@@ -44,6 +44,7 @@ style: string;
 - [ ] Add stop point for line connection to make it more readable
 - [ ] Add syntax highlighter for block code (Create/Edit)
 - [ ] Import/Export blocks data
+- [ ] Implement infinite canvas
 
 ## Contributor
 
