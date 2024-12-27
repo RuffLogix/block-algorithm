@@ -6,6 +6,7 @@ import { IBlock } from "@/interfaces/BlockInterfaces";
 import { NodeManager } from "./NodeManager";
 import { BasedBlock, BlockEditor } from "@/core/blocks";
 import { ISelectedPin } from "@/interfaces/NodeManagerInterfaces";
+import CreateBlockModal from "./CreateBlockModal";
 
 export default function BlockTemplate() {
   const {
@@ -19,7 +20,7 @@ export default function BlockTemplate() {
     draggedNode,
   } = NodeManager();
   const [selectedPin, setSelectedPin] = useState<ISelectedPin | null>(null);
-
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [blockEditor] = useState(new BlockEditor<number>());
 
   const handleConnectPin = (node: IBlock, pinType: string, pinName: string, pinIndex: number) => {
@@ -71,6 +72,7 @@ export default function BlockTemplate() {
   };
 
   const runTopologicalSort = () => {
+    console.log(nodes)
     const blocks = nodes.map(
       (node) =>
         new BasedBlock(
@@ -101,6 +103,11 @@ export default function BlockTemplate() {
     blockEditor.runTopological();
   };
 
+  const createNewBlock = (block: IBlock) => {
+    block.id = nodes.length;
+    setNodes([...nodes, block]);
+  }
+
   return (
     <div className="p-4">
       <div className="mb-4">
@@ -110,6 +117,13 @@ export default function BlockTemplate() {
         >
           Run Topological Sort
         </button>
+        <button
+          onClick={() => setIsOpen(true)}
+          className="bg-green-500 text-white p-2 rounded ml-2"
+        >
+          Create Button
+        </button>
+        <CreateBlockModal isOpen={isOpen} onClose={() => setIsOpen(false)} onCreate={createNewBlock} />
       </div>
       <div
         className="relative h-[600px] border-2 border-gray-200"

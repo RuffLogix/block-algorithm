@@ -6,7 +6,7 @@ import LogicGates from "@/utils/sample_blocks/logic_gates";
 import { IDraggedNode, IConnection } from "@/interfaces/NodeManagerInterfaces";
 
 export const NodeManager = () => {
-  const [nodes, setNodes] = useState<IBlock[]>(LogicGates);
+  const [nodes, setNodes] = useState<IBlock[]>([]);
   const [draggedNode, setDraggedNode] = useState<IDraggedNode | null>(null);
   const [connections, setConnections] = useState<IConnection[]>([]);
 
