@@ -37,8 +37,12 @@ style: string;
 - [ ] Zoom In/Out
 - [ ] Cancel Connection
 - [x] Preset Blocks (Logic, Math, etc.)
+- [x] Load pre-built template
 - [ ] `console.log()` block for debugging
 - [ ] Animation when block is running.
+- [ ] Add edit button for block
+- [ ] Add stop point for line connection to make it more readable
+- [ ] Add syntax highlighter for block code (Create/Edit)
 - [ ] Import/Export blocks data
 
 ## Contributor
