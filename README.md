@@ -31,7 +31,7 @@ style: string;
 - [ ] Test cases for `BasedBlock` class
 - [x] Block UI component
 - [x] Block Editor UI component
-- [ ] Create Block Button
+- [x] Create Block Button
 - [ ] Delete Block Button
 - [ ] Curve Connection
 - [ ] Zoom In/Out

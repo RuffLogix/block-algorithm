@@ -1,3 +1,11 @@
+export enum BlockStyle {
+  DANGER = "danger",
+  SUCCESS = "success",
+  WARNING = "warning",
+  INFO = "info",
+  NORMAL = "white",
+}
+
 export interface IPinPosition {
   blockIndex: number;
   pinIndex: number;

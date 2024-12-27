@@ -6,11 +6,14 @@ import LogicGates from "@/utils/sample_blocks/logic_gates";
 import { IDraggedNode, IConnection } from "@/interfaces/NodeManagerInterfaces";
 
 export const NodeManager = () => {
-  const [nodes, setNodes] = useState<IBlock[]>(LogicGates);
+  const [nodes, setNodes] = useState<IBlock[]>([]);
   const [draggedNode, setDraggedNode] = useState<IDraggedNode | null>(null);
   const [connections, setConnections] = useState<IConnection[]>([]);
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, node: IBlock) => {
+  const handleMouseDown = (
+    e: React.MouseEvent<HTMLDivElement>,
+    node: IBlock
+  ) => {
     const offsetX = e.clientX - node.x;
     const offsetY = e.clientY - node.y;
     setDraggedNode({ node, offsetX, offsetY });
@@ -25,7 +28,7 @@ export const NodeManager = () => {
               x: e.clientX - draggedNode.offsetX,
               y: e.clientY - draggedNode.offsetY,
             }
-          : n,
+          : n
       );
       setNodes(updatedNodes);
     }
