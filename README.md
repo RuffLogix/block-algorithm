@@ -22,7 +22,7 @@ style: string;
 
 ## Demo
 
-![Demo](./public/images/demo.png)
+![Demo](./public/images/demo01.png)
 
 ## Todo List
 
