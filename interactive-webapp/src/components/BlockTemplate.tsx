@@ -23,7 +23,12 @@ export default function BlockTemplate() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [blockEditor] = useState(new BlockEditor<number>());
 
-  const handleConnectPin = (node: IBlock, pinType: string, pinName: string, pinIndex: number) => {
+  const handleConnectPin = (
+    node: IBlock,
+    pinType: string,
+    pinName: string,
+    pinIndex: number
+  ) => {
     if (!selectedPin) {
       setSelectedPin({ node, pinType, pinName, pinIndex });
       return;
@@ -45,7 +50,7 @@ export default function BlockTemplate() {
           conn.source.nodeId === sourcePin.nodeId &&
           conn.source.pinName === sourcePin.pinName &&
           conn.target.nodeId === targetPin.nodeId &&
-          conn.target.pinName === targetPin.pinName,
+          conn.target.pinName === targetPin.pinName
       );
 
       if (!isDuplicateConnection) {
@@ -72,7 +77,7 @@ export default function BlockTemplate() {
   };
 
   const runTopologicalSort = () => {
-    console.log(nodes)
+    console.log(nodes);
     const blocks = nodes.map(
       (node) =>
         new BasedBlock(
@@ -82,8 +87,8 @@ export default function BlockTemplate() {
           node.name,
           node.description,
           node.inputNames,
-          node.outputNames,
-        ),
+          node.outputNames
+        )
     );
 
     blocks.forEach((block, blockIndex) => {
@@ -106,7 +111,7 @@ export default function BlockTemplate() {
   const createNewBlock = (block: IBlock) => {
     block.id = nodes.length;
     setNodes([...nodes, block]);
-  }
+  };
 
   return (
     <div className="p-4">
@@ -123,7 +128,11 @@ export default function BlockTemplate() {
         >
           Create Button
         </button>
-        <CreateBlockModal isOpen={isOpen} onClose={() => setIsOpen(false)} onCreate={createNewBlock} />
+        <CreateBlockModal
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          onCreate={createNewBlock}
+        />
       </div>
       <div
         className="relative h-[600px] border-2 border-gray-200"
@@ -150,7 +159,7 @@ export default function BlockTemplate() {
                   const pinConnections = connections.filter(
                     (conn) =>
                       conn.target.nodeId === node.id &&
-                      conn.target.pinName === inputName,
+                      conn.target.pinName === inputName
                   );
                   return (
                     <div
@@ -176,7 +185,7 @@ export default function BlockTemplate() {
                   const pinConnections = connections.filter(
                     (conn) =>
                       conn.source.nodeId === node.id &&
-                      conn.source.pinName === outputName,
+                      conn.source.pinName === outputName
                   );
                   return (
                     <div
@@ -205,10 +214,10 @@ export default function BlockTemplate() {
         >
           {connections.map((conn, index) => {
             const sourceNode = nodes.find(
-              (node) => node.id === conn.source.nodeId,
+              (node) => node.id === conn.source.nodeId
             );
             const targetNode = nodes.find(
-              (node) => node.id === conn.target.nodeId,
+              (node) => node.id === conn.target.nodeId
             );
 
             if (!sourceNode || !targetNode) return null;
@@ -228,7 +237,7 @@ export default function BlockTemplate() {
               sourceNode,
               targetNode,
               conn.source.pinIndex,
-              conn.target.pinIndex,
+              conn.target.pinIndex
             );
 
             return (

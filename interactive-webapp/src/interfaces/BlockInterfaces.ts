@@ -1,4 +1,4 @@
-export enum BlockStyle{
+export enum BlockStyle {
   DANGER = "danger",
   SUCCESS = "success",
   WARNING = "warning",
