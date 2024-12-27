@@ -18,6 +18,7 @@ export default function BlockTemplate() {
     handleMouseMove,
     handleMouseUp,
     draggedNode,
+    templateNodes,
   } = NodeManager();
   const [selectedPin, setSelectedPin] = useState<ISelectedPin | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -128,6 +129,20 @@ export default function BlockTemplate() {
         >
           Create Button
         </button>
+        <select
+          name="template-nodes"
+          id="template-nodes"
+          onChange={(e) =>
+            setNodes(templateNodes[Number(e.target.value)].blocks)
+          }
+          className="text-primary-background bg-white p-2 rounded ml-2"
+        >
+          {templateNodes.map((template, index) => (
+            <option key={index} value={index}>
+              {template.name}
+            </option>
+          ))}
+        </select>
         <CreateBlockModal
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
