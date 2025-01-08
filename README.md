@@ -32,10 +32,10 @@ style: string;
 - [x] Block UI component
 - [x] Block Editor UI component
 - [x] Create Block Button
-- [ ] Delete Block Button
+- [x] Delete Block Button
 - [ ] Curve Connection
 - [ ] Zoom In/Out
-- [ ] Cancel Connection
+- [x] Cancel Connection
 - [x] Preset Blocks (Logic, Math, etc.)
 - [x] Load pre-built template
 - [ ] `console.log()` block for debugging
