@@ -24,6 +24,9 @@ export default function BlockTemplate() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [blockEditor] = useState(new BlockEditor<number>());
 
+  let currNodeID = 0;
+  let currConnectionID = 0;
+
   const handleConnectPin = (
     node: IBlock,
     pinType: string,
@@ -56,6 +59,10 @@ export default function BlockTemplate() {
 
       if (!isDuplicateConnection) {
         const newConnection = {
+          id:
+            connections.length > 0
+              ? Math.max(...connections.map((c) => c.id)) + 1
+              : 0,
           source: {
             nodeId: sourcePin.nodeId,
             pinName: sourcePin.pinName,
@@ -78,7 +85,6 @@ export default function BlockTemplate() {
   };
 
   const runTopologicalSort = () => {
-    console.log(nodes);
     const blocks = nodes.map(
       (node) =>
         new BasedBlock(
@@ -110,8 +116,30 @@ export default function BlockTemplate() {
   };
 
   const createNewBlock = (block: IBlock) => {
-    block.id = nodes.length;
+    currNodeID = Math.max(nodes.length, currNodeID + 1);
+    block.id = currNodeID;
     setNodes([...nodes, block]);
+  };
+
+  const deleteNode = (id: number) => {
+    return () => {
+      setNodes(nodes.filter((node) => node.id !== id));
+      setConnections(
+        connections.filter(
+          (conn) => conn.source.nodeId !== id && conn.target.nodeId !== id
+        )
+      );
+    };
+  };
+
+  const deleteConnection = (id: number) => {
+    return () => {
+      setConnections(
+        connections.filter((conn) => {
+          return conn.id !== id;
+        })
+      );
+    };
   };
 
   return (
@@ -164,7 +192,15 @@ export default function BlockTemplate() {
             }}
             onMouseDown={(e) => handleMouseDown(e, node)}
           >
-            <div className="font-bold">{node.name}</div>
+            <div className="font-bold w-full flex justify-between">
+              {node.name}{" "}
+              <span
+                className="text-danger hover:cursor-pointer font-medium"
+                onClick={deleteNode(node.id)}
+              >
+                x
+              </span>
+            </div>
             <div className="text-sm text-gray-400">{node.description}</div>
 
             <div className="mt-2 flex">
@@ -237,17 +273,6 @@ export default function BlockTemplate() {
 
             if (!sourceNode || !targetNode) return null;
 
-            // Calculate connection path using source and target node positions
-            const startX = sourceNode.x + 250; // Adjusted for output position
-            const startY = sourceNode.y + 105 + conn.source.pinIndex * 20; // Offset per pin index for vertical spacing
-            const endX = targetNode.x; // Adjusted for input position
-            const endY = targetNode.y + 105 + conn.target.pinIndex * 20; // Offset per pin index for vertical spacing
-
-            const midX = (startX + endX) / 2;
-            const controlPointY = (startY + endY) / 2 - 50;
-
-            // // const path = `M${startX},${startY} Q${midX},${controlPointY} ${endX},${endY}`;
-            // const path = `M${startX},${startY} L${endX},${endY}`;
             const path = calculateConnectionPath(
               sourceNode,
               targetNode,
@@ -258,11 +283,15 @@ export default function BlockTemplate() {
             return (
               <path
                 key={index}
+                onClick={deleteConnection(conn.id)}
+                pointerEvents="all"
+                cursor="pointer"
                 d={path}
                 stroke="white"
                 fill="transparent"
                 strokeWidth="2"
                 markerEnd="url(#arrowhead)"
+                className="stroke-white hover:stroke-red-500 hover:z-10 transition-colors duration-200"
               />
             );
           })}

@@ -7,6 +7,7 @@ export interface IDraggedNode {
 }
 
 export interface IConnection {
+    id: number;
     source: {
         nodeId: number;
         pinName: string;
