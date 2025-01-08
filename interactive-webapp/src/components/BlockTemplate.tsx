@@ -59,7 +59,10 @@ export default function BlockTemplate() {
 
       if (!isDuplicateConnection) {
         const newConnection = {
-          id: currConnectionID++,
+          id:
+            connections.length > 0
+              ? Math.max(...connections.map((c) => c.id)) + 1
+              : 0,
           source: {
             nodeId: sourcePin.nodeId,
             pinName: sourcePin.pinName,
@@ -82,7 +85,6 @@ export default function BlockTemplate() {
   };
 
   const runTopologicalSort = () => {
-    console.log(nodes);
     const blocks = nodes.map(
       (node) =>
         new BasedBlock(
@@ -126,6 +128,16 @@ export default function BlockTemplate() {
         connections.filter(
           (conn) => conn.source.nodeId !== id && conn.target.nodeId !== id
         )
+      );
+    };
+  };
+
+  const deleteConnection = (id: number) => {
+    return () => {
+      setConnections(
+        connections.filter((conn) => {
+          return conn.id !== id;
+        })
       );
     };
   };
@@ -180,7 +192,15 @@ export default function BlockTemplate() {
             }}
             onMouseDown={(e) => handleMouseDown(e, node)}
           >
-            <div className="font-bold w-full flex justify-between">{node.name} <span className="text-danger hover:cursor-pointer font-medium" onClick={deleteNode(node.id)}>x</span></div>
+            <div className="font-bold w-full flex justify-between">
+              {node.name}{" "}
+              <span
+                className="text-danger hover:cursor-pointer font-medium"
+                onClick={deleteNode(node.id)}
+              >
+                x
+              </span>
+            </div>
             <div className="text-sm text-gray-400">{node.description}</div>
 
             <div className="mt-2 flex">
@@ -263,11 +283,15 @@ export default function BlockTemplate() {
             return (
               <path
                 key={index}
+                onClick={deleteConnection(conn.id)}
+                pointerEvents="all"
+                cursor="pointer"
                 d={path}
                 stroke="white"
                 fill="transparent"
                 strokeWidth="2"
                 markerEnd="url(#arrowhead)"
+                className="stroke-white hover:stroke-red-500 hover:z-10 transition-colors duration-200"
               />
             );
           })}
