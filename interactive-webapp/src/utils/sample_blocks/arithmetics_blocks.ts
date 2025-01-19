@@ -2,7 +2,7 @@ import { IBlock } from "@/interfaces/BlockInterfaces";
 
 const ArithmeticsBlocks: IBlock[] = [
   {
-    id: 1,
+    id: 0,
     x: 50,
     y: 100,
     name: "Constant Value (5)",
@@ -15,7 +15,7 @@ const ArithmeticsBlocks: IBlock[] = [
     style: "warning",
   },
   {
-    id: 2,
+    id: 1,
     x: 50,
     y: 275,
     name: "Constant Value (7)",
@@ -28,7 +28,7 @@ const ArithmeticsBlocks: IBlock[] = [
     style: "warning",
   },
   {
-    id: 3,
+    id: 2,
     x: 50,
     y: 420,
     name: "Addition Block",
@@ -41,7 +41,7 @@ const ArithmeticsBlocks: IBlock[] = [
     style: "danger",
   },
   {
-    id: 4,
+    id: 3,
     x: 325,
     y: 100,
     name: "Subtraction Block",
@@ -54,7 +54,7 @@ const ArithmeticsBlocks: IBlock[] = [
     style: "danger",
   },
   {
-    id: 5,
+    id: 4,
     x: 325,
     y: 275,
     name: "Multiplication Block",
@@ -67,7 +67,7 @@ const ArithmeticsBlocks: IBlock[] = [
     style: "danger",
   },
   {
-    id: 6,
+    id: 5,
     x: 325,
     y: 420,
     name: "Division Block",
@@ -80,7 +80,7 @@ const ArithmeticsBlocks: IBlock[] = [
     style: "danger",
   },
   {
-    id: 7,
+    id: 6,
     x: 600,
     y: 100,
     name: "Display Block",

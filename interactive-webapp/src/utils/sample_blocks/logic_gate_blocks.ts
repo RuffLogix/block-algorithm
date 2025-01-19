@@ -2,7 +2,7 @@ import { IBlock } from "@/interfaces/BlockInterfaces";
 
 const LogicGates: IBlock[] = [
   {
-    id: 1,
+    id: 0,
     x: 100,
     y: 100,
     name: "Constant Value (True)",
@@ -15,7 +15,7 @@ const LogicGates: IBlock[] = [
     style: "warning",
   },
   {
-    id: 2,
+    id: 1,
     x: 100,
     y: 275,
     name: "Constant Value (False)",
@@ -28,7 +28,7 @@ const LogicGates: IBlock[] = [
     style: "warning",
   },
   {
-    id: 3,
+    id: 2,
     x: 100,
     y: 420,
     name: "And Gate Block",
@@ -41,7 +41,7 @@ const LogicGates: IBlock[] = [
     style: "danger",
   },
   {
-    id: 4,
+    id: 3,
     x: 400,
     y: 100,
     name: "OR Gate Block",
@@ -54,7 +54,7 @@ const LogicGates: IBlock[] = [
     style: "danger",
   },
   {
-    id: 5,
+    id: 4,
     x: 400,
     y: 275,
     name: "Not Gate Block",
@@ -67,7 +67,7 @@ const LogicGates: IBlock[] = [
     style: "danger",
   },
   {
-    id: 6,
+    id: 5,
     x: 400,
     y: 420,
     name: "Display Block",
